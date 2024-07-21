@@ -23,7 +23,7 @@ public class LoginActivity extends AppCompatActivity {
 
     private EditText emailEditText, passwordEditText;
     private Button loginButton;
-    private TextView forgotPasswordTextView, registerTextView;
+    private TextView forgotPasswordTextView, registerTextView, helpTextView;
     private ProgressDialog progressDialog;
     private FirebaseAuth firebaseAuth;
 
@@ -37,6 +37,7 @@ public class LoginActivity extends AppCompatActivity {
         loginButton = findViewById(R.id.loginButton);
         forgotPasswordTextView = findViewById(R.id.forgotPasswordTextView);
         registerTextView = findViewById(R.id.registerTextView);
+        helpTextView = findViewById(R.id.helpTextView);
 
         firebaseAuth = FirebaseAuth.getInstance();
 
@@ -61,6 +62,13 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 resetPassword();
+            }
+        });
+
+        helpTextView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(LoginActivity.this, AyudaSoporteActivity.class));
             }
         });
     }
