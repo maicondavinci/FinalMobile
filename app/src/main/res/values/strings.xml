@@ -1,0 +1,48 @@
+<resources>
+    <string name="app_name">GiftWave</string>
+    <!--MAIN ACTIVITY -->
+    <string name="Btn_login">Login</string>
+    <string name="Btn_registro">Registro</string>
+    <!--REGISTRO ACTIVITY -->
+    <string name="CrearCuentaTXT">Crear una cuenta</string>
+    <string name="NombreET">Nombres</string>
+    <string name="ApellidoET">Apellido</string>
+    <string name="CorreoET">Correo electrónico</string>
+    <string name="ContraseñaET">Contraseña</string>
+    <string name="ConfirmarContraseñaET">Confirmar Contraseña</string>
+    <string name="RegistrarUsuario">Registrar</string>
+    <string name="TengounacuentaTXT">Tengo una cuenta</string>
+    <!--MENU PRINCIPAL -->
+    <string name="CerrarSesion">Salir</string>
+    <!--LOGIN ACTIVITY -->
+    <string name="IniciarSesionTXT">Iniciar Sesión</string>
+    <string name="CorreoLogin">Correo</string>
+    <string name="ContraseñaLogin">Contraseña</string>
+    <string name="PassPoLogin">Ingresar</string>
+    <string name="Btn_Logeo">Tengo una cuenta</string>
+    <string name="UsuarioNuevoTXT">¿No tienes una cuenta? Regístrate</string>
+    <string name="logo_description">Logo de GiftWave</string>
+    <string name="profile_image_description">Imagen de perfil</string>
+
+    <!--AGREGAR SERVICIO -->
+    <string name="Uid_Usuario">Uid del usuario</string>
+    <string name="Correo_Usuario">Correo del usuario</string>
+    <string name="Fecha_hora_actual">Fecha y hora actual</string>
+    <string name="Titulo">Título</string>
+    <string name="Descripcion">Descripción</string>
+    <string name="Btn_Calendario">Calendario</string>
+    <string name="Fecha">00/00/0000</string>
+    <string name="Estado">No finalizado</string>
+
+    <!-- HOME ACTIVITY -->
+    <string name="perfil">Perfil</string>
+    <string name="giftcards">GiftCards</string>
+    <string name="notificaciones">Notificaciones</string>
+    <string name="mis_compras">Mis Compras</string>
+
+    <string-array name="genero_options">
+        <item>Masculino</item>
+        <item>Femenino</item>
+        <item>Otro</item>
+    </string-array>
+</resources>

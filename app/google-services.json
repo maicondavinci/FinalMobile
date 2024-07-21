@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "659743929636",
+    "project_id": "final-779f2",
+    "storage_bucket": "final-779f2.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:659743929636:android:d7a23e0f449bbf29292fb1",
+        "android_client_info": {
+          "package_name": "com.example.bytebusters"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAPZQIIsMqoFSLqwhZpHrjADy4LZemx2us"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

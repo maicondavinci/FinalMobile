@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/homeFragment"
+        android:icon="@drawable/home2"
+        android:title="Home" />
+
+    <item
+        android:id="@+id/profileFragment"
+        android:icon="@drawable/user"
+        android:title="Perfil" />
+
+    <item
+        android:id="@+id/misComprasFragment"
+        android:icon="@drawable/compras"
+        android:title="Mis Compras" />
+
+    <item
+        android:id="@+id/notificationsFragment"
+        android:icon="@drawable/notificacion"
+        android:title="Notificaciones" />
+
+    <item
+        android:id="@+id/giftCardsFragment"
+        android:icon="@drawable/giftcard"
+        android:title="GiftCards" />
+</menu>
