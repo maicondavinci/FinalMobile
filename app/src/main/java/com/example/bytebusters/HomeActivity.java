@@ -51,7 +51,7 @@ public class HomeActivity extends AppCompatActivity {
         cardGiftcards.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(HomeActivity.this, PerfilActivity.class));
+                startActivity(new Intent(HomeActivity.this, GiftCardsActivity.class));
             }
         });
 

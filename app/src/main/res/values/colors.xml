@@ -6,6 +6,9 @@
     <color name="colorPrimaryDark">#0D47A1</color> <!-- Azul Oscuro -->
     <color name="colorAccent">#F57C00</color> <!-- Naranja -->
     <color name="colorButtonNormal">#1A237E</color> <!-- Color normal del botón -->
-    <color name="colorButtonPressed">#3700B3</color> <!-- Color cuando el botón está presionado -->
+    <color name="colorButtonNormalValores">#607D8B</color> <!-- Color normal del botón -->
+    <color name="colorButtonPressed">#F57C00</color> <!-- Color cuando el botón está presionado -->
     <color name="colorButtonText">#FFFFFF</color> <!-- Color del texto del botón -->
+    <color name="violet">#673AB7</color>
+
 </resources>

@@ -38,6 +38,12 @@
         <activity
             android:name=".CompraDetalleActivity"
             android:exported="false"/>
+        <activity
+            android:name=".GiftCardsActivity"
+            android:exported="false"/>
+        <activity
+            android:name=".DetalleGiftCardActivity"
+            android:exported="false"/>
 
         <activity
             android:name=".LoginActivity"
