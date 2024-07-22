@@ -49,6 +49,13 @@ public class CompraDetalleActivity extends AppCompatActivity {
             valorTextView.setText("Valor: $" + valor);
             codigoTextView.setText("Código: " + codigo);
             giftCardImageView.setImageResource(imagenResourceId);
+
+            // Configurar el botón "Dónde Usar" para abrir MapsActivity
+            dondeUsarButton.setOnClickListener(v -> {
+                Intent mapIntent = new Intent(CompraDetalleActivity.this, MapsActivity.class);
+                mapIntent.putExtra("NOMBRE_GIFTCARD", nombreGiftCard);
+                startActivity(mapIntent);
+            });
         }
     }
 }

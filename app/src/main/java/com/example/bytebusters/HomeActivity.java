@@ -8,6 +8,11 @@ import android.view.View;
 import androidx.cardview.widget.CardView;
 import android.widget.Button;
 import android.widget.TextView;
+import android.Manifest;
+import android.content.pm.PackageManager;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -16,9 +21,11 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import android.widget.Toast;
 
 public class HomeActivity extends AppCompatActivity {
+
+    private static final int PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION = 1;
+    private boolean locationPermissionGranted;
 
     private CardView cardGiftcards, cardPerfil, cardNotificaciones, cardMisCompras;
     private Button logoutButton;
@@ -43,47 +50,48 @@ public class HomeActivity extends AppCompatActivity {
 
         if (user != null) {
             databaseReference = FirebaseDatabase.getInstance().getReference("usuarios").child(user.getUid());
-
             // Cargar el nombre del usuario
             loadUserName();
         }
 
-        cardGiftcards.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(HomeActivity.this, GiftCardsActivity.class));
-            }
+        cardGiftcards.setOnClickListener(v -> startActivity(new Intent(HomeActivity.this, GiftCardsActivity.class)));
+        cardPerfil.setOnClickListener(v -> startActivity(new Intent(HomeActivity.this, PerfilActivity.class)));
+        cardNotificaciones.setOnClickListener(v -> startActivity(new Intent(HomeActivity.this, NotificacionesActivity.class)));
+        cardMisCompras.setOnClickListener(v -> startActivity(new Intent(HomeActivity.this, MisComprasActivity.class)));
+
+        logoutButton.setOnClickListener(v -> {
+            firebaseAuth.signOut();
+            startActivity(new Intent(HomeActivity.this, LoginActivity.class));
+            finish();
         });
 
-        cardPerfil.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(HomeActivity.this, PerfilActivity.class));
-            }
-        });
+        // Solicitar permisos de ubicación
+        getLocationPermission();
+    }
 
-        cardNotificaciones.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(HomeActivity.this, NotificacionesActivity.class));
-            }
-        });
+    private void getLocationPermission() {
+        if (ContextCompat.checkSelfPermission(this.getApplicationContext(),
+                Manifest.permission.ACCESS_FINE_LOCATION)
+                == PackageManager.PERMISSION_GRANTED) {
+            locationPermissionGranted = true;
+        } else {
+            ActivityCompat.requestPermissions(this,
+                    new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
+                    PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION);
+        }
+    }
 
-        cardMisCompras.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(HomeActivity.this, MisComprasActivity.class));
+    @Override
+    public void onRequestPermissionsResult(int requestCode,
+                                           @NonNull String[] permissions,
+                                           @NonNull int[] grantResults) {
+        locationPermissionGranted = false;
+        if (requestCode == PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION) {
+            if (grantResults.length > 0
+                    && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                locationPermissionGranted = true;
             }
-        });
-
-        logoutButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                firebaseAuth.signOut();
-                startActivity(new Intent(HomeActivity.this, LoginActivity.class));
-                finish();
-            }
-        });
+        }
     }
 
     private void loadUserName() {
