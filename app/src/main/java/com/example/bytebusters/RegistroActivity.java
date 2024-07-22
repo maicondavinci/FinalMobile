@@ -5,17 +5,21 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+
 import java.util.HashMap;
 
 public class RegistroActivity extends AppCompatActivity {
@@ -40,7 +44,7 @@ public class RegistroActivity extends AppCompatActivity {
         firebaseAuth = FirebaseAuth.getInstance();
 
         progressDialog = new ProgressDialog(this);
-        progressDialog.setMessage("Please wait...");
+        progressDialog.setMessage("Por favor, espere...");
 
         registerButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -64,20 +68,20 @@ public class RegistroActivity extends AppCompatActivity {
         String nombre = nombreEditText.getText().toString().trim();
         String apellido = apellidoEditText.getText().toString().trim();
 
-        if (!android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-            emailEditText.setError("Invalid Email");
+        if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+            emailEditText.setError("Correo electrónico inválido");
             emailEditText.setFocusable(true);
             return;
         }
 
         if (password.length() < 6) {
-            passwordEditText.setError("Password length should be at least 6 characters");
+            passwordEditText.setError("La contraseña debe tener al menos 6 caracteres");
             passwordEditText.setFocusable(true);
             return;
         }
 
         if (!password.equals(repeatPassword)) {
-            repeatPasswordEditText.setError("Passwords do not match");
+            repeatPasswordEditText.setError("Las contraseñas no coinciden");
             repeatPasswordEditText.setFocusable(true);
             return;
         }
@@ -87,7 +91,7 @@ public class RegistroActivity extends AppCompatActivity {
                 .addOnSuccessListener(new OnSuccessListener<AuthResult>() {
                     @Override
                     public void onSuccess(AuthResult authResult) {
-                        saveUserInfo(email, nombre, apellido, "cliente");
+                        saveUserInfo(authResult.getUser().getUid(), email, nombre, apellido);
                     }
                 }).addOnFailureListener(new OnFailureListener() {
                     @Override
@@ -98,31 +102,37 @@ public class RegistroActivity extends AppCompatActivity {
                 });
     }
 
-    private void saveUserInfo(String email, String nombre, String apellido, String role) {
-        String uid = firebaseAuth.getCurrentUser().getUid();
-        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("usuarios");
+    private void saveUserInfo(String uid, String email, String nombre, String apellido) {
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("usuarios").child(uid);
+        HashMap<String, String> userMap = new HashMap<>();
+        userMap.put("email", email);
+        userMap.put("nombre", nombre);
+        userMap.put("apellido", apellido);
 
-        HashMap<String, Object> userInfo = new HashMap<>();
-        userInfo.put("email", email);
-        userInfo.put("nombre", nombre);
-        userInfo.put("apellido", apellido);
-        userInfo.put("role", role);
-
-        databaseReference.child(uid).setValue(userInfo)
-                .addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void aVoid) {
-                        progressDialog.dismiss();
-                        Toast.makeText(RegistroActivity.this, "Registro exitoso", Toast.LENGTH_SHORT).show();
-                        startActivity(new Intent(RegistroActivity.this, LoginActivity.class));
-                        finish();
-                    }
-                }).addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        progressDialog.dismiss();
-                        Toast.makeText(RegistroActivity.this, "" + e.getMessage(), Toast.LENGTH_SHORT).show();
-                    }
-                });
+        reference.setValue(userMap).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                if (task.isSuccessful()) {
+                    firebaseAuth.getCurrentUser().sendEmailVerification()
+                            .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    progressDialog.dismiss();
+                                    if (task.isSuccessful()) {
+                                        Toast.makeText(RegistroActivity.this, "Registro exitoso. Verifica tu email para continuar.", Toast.LENGTH_LONG).show();
+                                        firebaseAuth.signOut();
+                                        startActivity(new Intent(RegistroActivity.this, LoginActivity.class));
+                                        finish();
+                                    } else {
+                                        Toast.makeText(RegistroActivity.this, "Error al enviar el email de verificación.", Toast.LENGTH_SHORT).show();
+                                    }
+                                }
+                            });
+                } else {
+                    progressDialog.dismiss();
+                    Toast.makeText(RegistroActivity.this, "Error al guardar la información del usuario.", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
     }
 }

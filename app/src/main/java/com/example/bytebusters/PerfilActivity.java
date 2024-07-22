@@ -13,6 +13,7 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -25,6 +26,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
@@ -152,7 +154,7 @@ public class PerfilActivity extends AppCompatActivity {
 
     private void saveUserProfile() {
         String nombre = nombreEditText.getText().toString();
-        String apellido = nombreEditText.getText().toString();
+        String apellido = apellidoEditText.getText().toString();
         String fechaNacimiento = fechaNacimientoEditText.getText().toString();
         String genero = generoSpinner.getSelectedItem().toString();
         String nacionalidad = nacionalidadEditText.getText().toString();

@@ -90,10 +90,15 @@ public class LoginActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         progressDialog.dismiss();
                         if (task.isSuccessful()) {
-                            startActivity(new Intent(LoginActivity.this, HomeActivity.class));
-                            finish();
+                            if (firebaseAuth.getCurrentUser().isEmailVerified()) {
+                                startActivity(new Intent(LoginActivity.this, HomeActivity.class));
+                                finish();
+                            } else {
+                                Toast.makeText(LoginActivity.this, "Por favor verifica tu email antes de iniciar sesión.", Toast.LENGTH_LONG).show();
+                                firebaseAuth.signOut(); // Desloguear al usuario si el email no está verificado
+                            }
                         } else {
-                            Toast.makeText(LoginActivity.this, "Error de autenticación", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(LoginActivity.this, "Contraseña inválida", Toast.LENGTH_SHORT).show();
                         }
                     }
                 }).addOnFailureListener(new OnFailureListener() {
