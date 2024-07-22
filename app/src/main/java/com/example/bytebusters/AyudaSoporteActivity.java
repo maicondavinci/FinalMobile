@@ -6,12 +6,13 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class AyudaSoporteActivity extends AppCompatActivity {
 
     private EditText nombreEditText, correoEditText, pedidoEditText, asuntoEditText, mensajeEditText;
-    private Button enviarButton, faqButton, chatButton, telefonoButton;
+    private Button enviarButton, telefonoButton;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -25,28 +26,12 @@ public class AyudaSoporteActivity extends AppCompatActivity {
         mensajeEditText = findViewById(R.id.mensajeEditText);
 
         enviarButton = findViewById(R.id.enviarButton);
-        faqButton = findViewById(R.id.faqButton);
-        chatButton = findViewById(R.id.chatButton);
         telefonoButton = findViewById(R.id.telefonoButton);
 
         enviarButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 enviarFormulario();
-            }
-        });
-
-        faqButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                abrirFAQ();
-            }
-        });
-
-        chatButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                abrirChat();
             }
         });
 
@@ -73,18 +58,11 @@ public class AyudaSoporteActivity extends AppCompatActivity {
         }
     }
 
-    private void abrirFAQ() {
-        // Aquí puedes agregar la lógica para abrir la sección de preguntas frecuentes
-        Toast.makeText(this, "Abrir FAQ", Toast.LENGTH_SHORT).show();
-    }
-
-    private void abrirChat() {
-        // Aquí puedes agregar la lógica para abrir el chat en vivo
-        Toast.makeText(this, "Abrir Chat en Vivo", Toast.LENGTH_SHORT).show();
-    }
-
     private void abrirTelefono() {
-        // Aquí puedes agregar la lógica para mostrar el número de teléfono de soporte
-        Toast.makeText(this, "Abrir Teléfono", Toast.LENGTH_SHORT).show();
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Teléfonos de Soporte")
+                .setMessage("Soporte Técnico: 123-456-7890\nAtención al Cliente: 098-765-4321")
+                .setPositiveButton("OK", null)
+                .show();
     }
 }

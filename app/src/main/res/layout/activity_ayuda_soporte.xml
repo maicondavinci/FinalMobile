@@ -33,141 +33,149 @@
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp" />
 
-    <EditText
-        android:id="@+id/nombreEditText"
-        android:layout_width="350dp"
+    <FrameLayout
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
         android:layout_marginTop="16dp"
-        android:hint="Nombre"
-        android:background="@drawable/edit_text_background"
-        android:padding="12dp"
-        android:textColor="@android:color/black"
-        android:textColorHint="@android:color/darker_gray"
+        android:background="#80FFFFFF"
         app:layout_constraintTop_toBottomOf="@id/descripcionSoporte"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp" />
+        app:layout_constraintBottom_toBottomOf="parent">
 
-    <EditText
-        android:id="@+id/correoEditText"
-        android:layout_width="350dp"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:hint="Correo electrónico"
-        android:inputType="textEmailAddress"
-        android:background="@drawable/edit_text_background"
-        android:padding="12dp"
-        android:textColor="@android:color/black"
-        android:textColorHint="@android:color/darker_gray"
-        app:layout_constraintTop_toBottomOf="@id/nombreEditText"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp" />
+        android:orientation="vertical"
+        android:padding="16dp">
 
-    <EditText
-        android:id="@+id/pedidoEditText"
-        android:layout_width="350dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:hint="Número de pedido (opcional)"
-        android:background="@drawable/edit_text_background"
-        android:padding="12dp"
-        android:textColor="@android:color/black"
-        android:textColorHint="@android:color/darker_gray"
-        app:layout_constraintTop_toBottomOf="@id/correoEditText"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp" />
+        <!-- Nombre Label -->
+        <TextView
+            android:id="@+id/nombreLabel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Nombre"
+            android:textColor="@color/colorPrimaryDark"
+            android:textStyle="bold" />
 
-    <EditText
-        android:id="@+id/asuntoEditText"
-        android:layout_width="350dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:hint="Asunto"
-        android:background="@drawable/edit_text_background"
-        android:padding="12dp"
-        android:textColor="@android:color/black"
-        android:textColorHint="@android:color/darker_gray"
-        app:layout_constraintTop_toBottomOf="@id/pedidoEditText"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp" />
+        <EditText
+            android:id="@+id/nombreEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:background="@android:color/white"
+            android:padding="12dp"
+            android:textColor="@android:color/black"
+            android:textColorHint="@android:color/darker_gray" />
 
-    <EditText
-        android:id="@+id/mensajeEditText"
-        android:layout_width="350dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:hint="Mensaje"
-        android:background="@drawable/edit_text_background"
-        android:padding="12dp"
-        android:textColor="@android:color/black"
-        android:textColorHint="@android:color/darker_gray"
-        app:layout_constraintTop_toBottomOf="@id/asuntoEditText"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp" />
+        <!-- Correo Label -->
+        <TextView
+            android:id="@+id/correoLabel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="Correo electrónico"
+            android:textColor="@color/colorPrimaryDark"
+            android:textStyle="bold" />
 
-    <Button
-        android:id="@+id/enviarButton"
-        android:layout_width="200dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:text="Enviar"
-        android:backgroundTint="@color/colorButtonNormal"
-        android:textColor="@color/colorButtonText"
-        app:layout_constraintTop_toBottomOf="@id/mensajeEditText"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp" />
+        <EditText
+            android:id="@+id/correoEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:inputType="textEmailAddress"
+            android:background="@android:color/white"
+            android:padding="12dp"
+            android:textColor="@android:color/black"
+            android:textColorHint="@android:color/darker_gray" />
 
-    <Button
-        android:id="@+id/faqButton"
-        android:layout_width="200dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="FAQ"
-        android:backgroundTint="@color/colorButtonNormal"
-        android:textColor="@color/colorButtonText"
-        app:layout_constraintTop_toBottomOf="@id/enviarButton"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp" />
+        <!-- Número de pedido Label -->
+        <TextView
+            android:id="@+id/pedidoLabel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="Número de pedido (opcional)"
+            android:textColor="@color/colorPrimaryDark"
+            android:textStyle="bold" />
 
-    <Button
-        android:id="@+id/chatButton"
-        android:layout_width="200dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="Chat en Vivo"
-        android:backgroundTint="@color/colorButtonNormal"
-        android:textColor="@color/colorButtonText"
-        app:layout_constraintTop_toBottomOf="@id/faqButton"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp" />
+        <EditText
+            android:id="@+id/pedidoEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:background="@android:color/white"
+            android:padding="12dp"
+            android:textColor="@android:color/black"
+            android:textColorHint="@android:color/darker_gray" />
 
-    <Button
-        android:id="@+id/telefonoButton"
-        android:layout_width="200dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="Teléfono"
-        android:backgroundTint="@color/colorButtonNormal"
-        android:textColor="@color/colorButtonText"
-        app:layout_constraintTop_toBottomOf="@id/chatButton"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp" />
+        <!-- Asunto Label -->
+        <TextView
+            android:id="@+id/asuntoLabel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="Asunto"
+            android:textColor="@color/colorPrimaryDark"
+            android:textStyle="bold" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <EditText
+            android:id="@+id/asuntoEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:background="@android:color/white"
+            android:padding="12dp"
+            android:textColor="@android:color/black"
+            android:textColorHint="@android:color/darker_gray" />
+
+        <!-- Mensaje Label -->
+        <TextView
+            android:id="@+id/mensajeLabel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="Mensaje"
+            android:textColor="@color/colorPrimaryDark"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/mensajeEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:background="@android:color/white"
+            android:padding="12dp"
+            android:textColor="@android:color/black"
+            android:textColorHint="@android:color/darker_gray" />
+
+        <!-- Botones -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginTop="16dp"
+            android:gravity="center">
+
+            <Button
+                android:id="@+id/enviarButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Enviar"
+                android:backgroundTint="@color/colorButtonNormal"
+                android:textColor="@color/colorButtonText"
+                android:layout_marginBottom="8dp" />
+
+            <Button
+                android:id="@+id/telefonoButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Teléfonos"
+                android:backgroundTint="@color/colorButtonNormal"
+                android:textColor="@color/colorButtonText" />
+        </LinearLayout>
+    </LinearLayout>
+</FrameLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>

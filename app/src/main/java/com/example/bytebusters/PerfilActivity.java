@@ -1,6 +1,7 @@
 package com.example.bytebusters;
 
 import android.app.DatePickerDialog;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -38,6 +39,7 @@ public class PerfilActivity extends AppCompatActivity {
     private Spinner generoSpinner;
     private Switch notificacionesSwitch;
     private Button saveButton, contactoDireccionButton;
+    private ProgressDialog progressDialog;
 
     private FirebaseAuth auth;
     private DatabaseReference databaseReference;
@@ -50,7 +52,6 @@ public class PerfilActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_perfil);
 
-        // Inicialización de vistas
         profileImageView = findViewById(R.id.profileImageView);
         nombreEditText = findViewById(R.id.nombreEditText);
         apellidoEditText = findViewById(R.id.apellidoEditText);
@@ -62,13 +63,14 @@ public class PerfilActivity extends AppCompatActivity {
         saveButton = findViewById(R.id.saveButton);
         contactoDireccionButton = findViewById(R.id.contactoDireccionButton);
 
-        // Configuración del Spinner
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setMessage("Aguarde...");
+
         adapter = ArrayAdapter.createFromResource(this,
                 R.array.genero_options, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         generoSpinner.setAdapter(adapter);
 
-        // Firebase Auth
         auth = FirebaseAuth.getInstance();
         FirebaseUser user = auth.getCurrentUser();
         if (user != null) {
@@ -153,6 +155,8 @@ public class PerfilActivity extends AppCompatActivity {
     }
 
     private void saveUserProfile() {
+        progressDialog.show();
+
         String nombre = nombreEditText.getText().toString();
         String apellido = apellidoEditText.getText().toString();
         String fechaNacimiento = fechaNacimientoEditText.getText().toString();
@@ -176,11 +180,21 @@ public class PerfilActivity extends AppCompatActivity {
                 userUpdates.put("profileImageUrl", uri.toString());
                 databaseReference.updateChildren(userUpdates);
                 loadProfileImage(uri.toString());
+                progressDialog.dismiss();
                 Toast.makeText(PerfilActivity.this, "Profile Updated", Toast.LENGTH_SHORT).show();
-            })).addOnFailureListener(e -> Toast.makeText(PerfilActivity.this, "Image Upload Failed", Toast.LENGTH_SHORT).show());
+            })).addOnFailureListener(e -> {
+                progressDialog.dismiss();
+                Toast.makeText(PerfilActivity.this, "Image Upload Failed", Toast.LENGTH_SHORT).show();
+            });
         } else {
-            databaseReference.updateChildren(userUpdates);
-            Toast.makeText(this, "Profile Updated", Toast.LENGTH_SHORT).show();
+            databaseReference.updateChildren(userUpdates).addOnCompleteListener(task -> {
+                progressDialog.dismiss();
+                if (task.isSuccessful()) {
+                    Toast.makeText(PerfilActivity.this, "Profile Updated", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(PerfilActivity.this, "Failed to update profile", Toast.LENGTH_SHORT).show();
+                }
+            });
         }
     }
 

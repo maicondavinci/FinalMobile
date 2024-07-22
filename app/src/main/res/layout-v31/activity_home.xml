@@ -20,13 +20,13 @@
 
         <TextView
             android:id="@+id/greetingTextView"
-            android:layout_width="wrap_content"
+            android:layout_width="260dp"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:text="Hola!"
-            android:textSize="24sp"
-            android:textStyle="bold"
             android:textColor="@android:color/system_accent3_800"
-            android:layout_weight="1"/>
+            android:textSize="24sp"
+            android:textStyle="bold" />
 
         <Button
             android:id="@+id/logoutButton"
